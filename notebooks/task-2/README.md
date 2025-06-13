@@ -2,19 +2,19 @@
 
 In regulated industries like insurance, it's critical to track not just code but also data. **Task 2** focuses on establishing reproducible, auditable pipelines by using **DVC** (Data Version Control).
 
-## ✅ Objectives
+## Objectives
 
 * Set up DVC for data versioning
 * Configure a local remote data store
 * Track the raw insurance dataset
 * Push data to the remote
 
-## 🧰 Tools Used
+## Tools Used
 
 * [DVC](https://dvc.org/) – open-source tool for versioning data, models, and pipelines
 * Git – to track code and DVC metadata
 
-## 🗂️ Repository Structure Update
+## Repository Structure Update
 
 ```
 insurance-challenge-week/
@@ -27,7 +27,7 @@ insurance-challenge-week/
     └── task-2.sh            # Shell script for setting up DVC
 ```
 
-## 🔧 Setup Steps (Automated in `task-2.sh`)
+## Setup Steps (Automated in `task-2.sh`)
 
 1. **Initialize DVC**
 2. **Create and configure a local remote** at `/mnt/data/dvc-storage`
@@ -40,13 +40,13 @@ To run the automation:
 bash scripts/task-2.sh
 ```
 
-## 💡 Why DVC?
+## Why DVC?
 
-* 🕵️ Reproducibility: You can always re-run models with the exact data version used
-* 🔐 Compliance: Satisfies auditing and regulatory requirements
-* 📦 Scalability: Handles large datasets without storing them in Git
+* Reproducibility: You can always re-run models with the exact data version used
+* Compliance: Satisfies auditing and regulatory requirements
+* Scalability: Handles large datasets without storing them in Git
 
-## ✅ Final Checklist
+## Final Checklist
 
 * [x] `dvc init`
 * [x] Local remote created and configured
