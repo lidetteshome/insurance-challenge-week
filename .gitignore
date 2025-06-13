@@ -4,4 +4,4 @@ __pycache__/
 *.log
 *.sqlite
 .venv/
-data/
+data/MachineLearningRating_v3.csv
