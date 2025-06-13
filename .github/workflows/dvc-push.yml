@@ -1,0 +1,36 @@
+name: DVC Push on Commit
+
+on:
+  push:
+    branches:
+      - main
+      - task-2
+
+jobs:
+  dvc-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install DVC
+      run: |
+        pip install dvc
+
+    - name: Configure DVC Remote
+      run: |
+        dvc remote add -f -d localstorage /Users/yosephabate/dvc-storage || echo "Remote already exists"
+
+    - name: Pull DVC Tracked Data
+      run: |
+        dvc pull || echo "Nothing to pull"
+
+    - name: Push DVC Data (if changes)
+      run: |
+        dvc push

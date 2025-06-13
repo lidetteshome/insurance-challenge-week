@@ -59,11 +59,6 @@ These outliers could distort model training and require capping or transformatio
 - A **log transformation** may help stabilize variance for modeling
 - `CustomValueEstimate` also shows a non-normal distribution, further supporting the need for transformation or binning
 
-## Next Steps
-- Begin hypothesis testing on gender, province, and zip code segmentation
-- Prepare DVC setup for tracking data versions (Task 2)
-- Document findings in interim report
-
 ---
 
 **Author**: Lidet Teshome - lidet.teshome.aastu@gmail.com  
