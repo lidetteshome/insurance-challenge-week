@@ -1,96 +1,119 @@
+# Task 4: Risk-Based Premium Modeling and Prediction
 
-# Task 4 - Risk-Based Premium Modeling and Prediction
+This task focuses on building an end-to-end predictive system for dynamic insurance pricing using **risk-adjusted premiums**. The goal is to model:
+- Probability of a claim (classification)
+- Claim severity if a claim occurs (regression)
+- Premium estimation using these components
 
-## 🎯 Objectives
+---
 
-Develop models to predict:
-1. **Claim Severity** – estimate cost of a claim when it occurs
-2. **Premium Optimization** – align premium predictions with expected risk
-3. **Probability of Claim** *(Advanced)* – classify if a claim will occur
+## Goals
 
-## 🧪 Targets and Metrics
+1. **Claim Probability Model**  
+   - Target: `HasClaim` (binary)
+   - Type: Classification
+   - Metric: Accuracy, ROC AUC
 
-| Task | Target | Type | Metrics |
-|------|--------|------|---------|
-| Claim Severity | TotalClaims (if > 0) | Regression | RMSE, R² |
-| Premium | CalculatedPremiumPerTerm | Regression | RMSE, MAE, R² |
-| Probability of Claim | TotalClaims > 0 | Classification | Accuracy, ROC AUC, F1 |
+2. **Claim Severity Model**  
+   - Target: `TotalClaims` (only if > 0)
+   - Type: Regression
+   - Metrics: RMSE, R²
 
-## 🛠️ Pipeline Overview
+3. **Premium Estimation**  
+   \[
+   	ext{Premium} = 	ext{P(Claim)} 	imes 	ext{Predicted Severity} + 	ext{Expenses} + 	ext{Profit Margin}
+   \]
 
-1. **Data Cleaning** – drop/impute nulls
-2. **Feature Engineering** – derive new ratios or encodings
-3. **Encoding** – one-hot or label encoding
-4. **Split** – 80:20 train-test
-5. **Models** – LinearRegression, RandomForest, XGBoost (for both regression and classification)
-6. **Evaluation** – compare metrics across models
-7. **Interpretation** – SHAP for explainability
-8. **Risk-Based Premium** – Calculated as:
-   \[ \text{Premium} = \text{P(Claim)} \times \text{Predicted Severity} + \text{Expenses} + \text{Profit Margin} \]
+---
 
-## 🗂️ File Structure
+## Pipeline Overview
 
+1. Data Cleaning (drop/impute missing)
+2. Feature Engineering (e.g., `VehicleAge`)
+3. Encoding (One-hot / Label)
+4. Train-Test Split (80:20)
+5. Model Training (Logistic Regression, Random Forests, XGBoost)
+6. Evaluation (Accuracy, RMSE, R²)
+7. SHAP for Interpretability
+8. Premium Derivation
+
+---
+
+## Outputs & Files
+
+### Visuals
+- `predicted_vs_actual_claims.png` – Severity model regression performance
+- `shap_severity_summary.png` – SHAP global feature importance
+
+### Artifacts
+- `models/severity_model.pkl`
+- `models/probability_model.pkl`
+- `models/preprocessor.pkl`
+
+### Scripts
 ```
 notebooks/
 └── task-4/
     └── modeling_pipeline.ipynb
 
 scripts/
-├── task-4/
-│   ├── modeling_utils.py
-│   ├── interpret_utils.py
-│   └── cli_predict.py  # CLI tool to serve predictions
+└── task-4/
+    ├── modeling_utils.py
+    ├── interpret_utils.py
+    └── cli_predict.py
 ```
 
-## 📈 SHAP Interpretability
+---
 
-Using SHAP:
-- View top 10 important features for both severity and classification models
-- Force plots to explain single predictions
+## CLI for Batch Prediction
+
+You can predict risk-based premiums from a CSV file:
+
+```bash
+python scripts/task-4/cli_predict.py --data path/to/test_data.csv
+```
+
+Outputs include:
+- Predicted claim probability
+- Predicted severity
+- Final risk-based premium
+
+---
+
+## SHAP Interpretability
+
+We used SHAP to:
+- Rank the top features for both models
+- Interpret single predictions using force plots
 
 > "SHAP analysis reveals that for every year older a vehicle is, the predicted claim amount increases by X Rand."
 
-## ✅ Minimum Deliverables
+---
 
-- [x] Task 4 branch created and committed
-- [x] Data cleaning & prep complete
-- [x] Model pipeline ready
-- [x] Evaluation metrics logged
-- [x] SHAP interpretability implemented
-- [x] Claim classification model trained
-- [x] Risk-adjusted premium computed
-- [x] README created
+## Final Results
 
-## 🚀 Final Results
-- A classification model (e.g. XGBoostClassifier) accurately predicts claim probabilities.
-- These probabilities are multiplied by predicted claim severity to produce **risk-based premium** values.
-- SHAP summaries and plots offer feature-level explanations for both models, enabling transparency in pricing decisions.
+| Task | Model | Key Metric | Value |
+|------|-------|------------|--------|
+| Claim Probability | Logistic Regression | ROC AUC | High |
+| Claim Severity | Random Forest | RMSE, R² | Solid |
+| Premium | Derived | Dynamic | Personalized |
 
-## 📌 Example Risk-Based Premium Calculation
-For a policyholder:
-- Predicted Claim Probability = 0.27
-- Predicted Claim Severity = 6,500 ZAR
-- Expenses + Margin = 500 ZAR
-- **Premium = (0.27 × 6500) + 500 = 2,255 ZAR**
+**Example**:  
+- Claim Prob = 0.27  
+- Claim Severity = ZAR 6,500  
+- Premium = (0.27 × 6,500) + 500 = **ZAR 2,255**
 
-This premium aligns with individualized risk, improving fairness and profitability.
+---
 
-## 📉 Predicted vs Actuals Visualization
-- Scatter and KDE plots show how closely model predictions match observed claims and premiums.
-- These help verify model calibration and variance.
+## Deliverables Checklist
 
-## 🖥️ CLI for Model Serving
-- A `cli_predict.py` tool enables:
-  - Batch scoring of new policy data
-  - JSON input/output
-  - Option to serve via REST in future versions
+- [x] Data preprocessed
+- [x] Classification & regression models trained
+- [x] SHAP analysis complete
+- [x] CLI prediction tool implemented
+- [x] README finalized
 
-## 📦 Exported Artifacts
-- Trained model `.pkl` files saved to `/models`
-- SHAP value arrays and charts saved to `/outputs/task-4/`
-- CLI usage examples included in `scripts/task-4/`
+---
 
-## 🧭 Next Steps
-- Deploy models in staging API for business integration
-- Combine insights into final report with Task 1–3 findings
-- Prepare stakeholder deck with visuals and KPIs
+**Author**: Lidet Teshome  
+**Contact**: lidet.teshome.aastu@gmail.com  
