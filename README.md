@@ -85,9 +85,7 @@ insurance-challenge-week/
 - Used chi-squared and t-tests with p-value interpretation
 - Provided actionable pricing recommendations
 
----
-
-## [Task 4 – Predictive Modeling (WIP)](notebooks/task-4/README.md)
+### [Task 4 – Predictive Modeling (WIP)](notebooks/task-4/README.md)
 - Building regression & classification models
 - Risk-based premium calculation using probability × severity
 - SHAP interpretability and CLI support in progress
@@ -102,13 +100,6 @@ insurance-challenge-week/
 - Jupyter for notebooks
 - SHAP for model interpretability
 
----
-
-## Next Steps
-
-- Finalize Task 4 with trained models and CLI
-- Create stakeholder-ready PDF report with findings
-- Package all notebooks and artifacts for delivery
 
 ---
 
